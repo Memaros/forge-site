@@ -187,14 +187,15 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
 <script>
 (function(){
   // Analytics: GoatCounter (cookieless, no banner needed). Put your code here, e.g. 'forge' for forge.goatcounter.com
-  var GC='';
-  function send(name){
+  var GC='forge-muscu';
+  function send(name,pv){
     if(!GC)return;
-    var e=encodeURIComponent,u='https://'+GC+'.goatcounter.com/count?p='+e(name)+'&e=true&t='+e(name)+'&r='+e(document.referrer)+'&rnd='+Math.random().toString(36).slice(2);
+    var e=encodeURIComponent,u='https://'+GC+'.goatcounter.com/count?p='+e(pv?'/':name)+(pv?'':'&e=true')+'&t='+e(name)+'&r='+e(document.referrer)+'&rnd='+Math.random().toString(36).slice(2);
     // keepalive: the request survives the navigation to the App Store
     try{fetch(u,{mode:'no-cors',keepalive:true,credentials:'omit'})}catch(x){(new Image()).src=u}
   }
   // Funnel: 1 visit, 2 gate shown (in-app), 3 scrolled to features, 4 reached the end, 5 App Store click
+  send('Accueil',1);
   send(IN_APP?'1-visite-tiktok':'1-visite-navigateur');
   if(IN_APP)send('2-ecran-ouvrir-navigateur');
   var seen={};
