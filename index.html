@@ -94,11 +94,11 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
 .gate .arrow svg{display:block;width:150px;height:190px;animation:nudge .9s ease-in-out infinite}
 @keyframes nudge{50%{transform:translate(8px,-14px)}}
 .gate .msg{margin:auto 0;padding-bottom:12vh}
-.gate h2{font-size:clamp(52px,16vw,84px);line-height:1.02;margin:0 0 20px}
+.gate h2{font-size:clamp(46px,14vw,72px);line-height:1.02;margin:0 0 22px}
 .gate .dots{display:inline-flex;gap:.1em;vertical-align:.2em;padding:.06em .16em;border:3px solid var(--lime);border-radius:.4em}
 .gate .dots i{width:.17em;height:.17em;border-radius:50%;background:var(--lime);display:block}
-.gate p{font-size:20px;font-weight:600;color:var(--muted);margin:0}
-.gate p b{color:var(--fg)}
+.gate .then{font-size:22px;font-weight:700;color:var(--muted);margin:0 0 8px}
+.gate .open{font-family:var(--display);text-transform:uppercase;font-size:clamp(46px,14vw,72px);line-height:1;color:var(--bg);background:var(--lime);display:inline-block;padding:.12em .22em .08em;border-radius:.16em;margin:0;transform:rotate(-1.5deg)}
 @media (prefers-reduced-motion:reduce){.gate .arrow svg{animation:none}}
 @media (prefers-reduced-motion:reduce){.badge{transition:none}.badge:hover{transform:none}}
 </style>
@@ -111,7 +111,8 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
   </div>
   <div class="msg">
     <h2 id="gate-t">Appuie sur <span class="dots" aria-label="les trois points"><i></i><i></i><i></i></span> en haut à droite</h2>
-    <p>puis <b>« Ouvrir dans le navigateur »</b></p>
+    <p class="then">puis</p>
+    <p class="open">Ouvrir dans le navigateur</p>
   </div>
 </div>
 
