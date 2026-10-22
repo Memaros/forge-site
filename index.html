@@ -99,7 +99,6 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
 .gate .dots i{width:.17em;height:.17em;border-radius:50%;background:var(--lime);display:block}
 .gate p{font-size:20px;font-weight:600;color:var(--muted);margin:0}
 .gate p b{color:var(--fg)}
-.gate .skip{align-self:center;background:none;border:0;color:#4B5966;font:inherit;font-size:13px;padding:10px 16px;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.gate .arrow svg{animation:none}}
 @media (prefers-reduced-motion:reduce){.badge{transition:none}.badge:hover{transform:none}}
 </style>
@@ -114,7 +113,6 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
     <h2 id="gate-t">Appuie sur <span class="dots" aria-label="les trois points"><i></i><i></i><i></i></span> en haut à droite</h2>
     <p>puis <b>« Ouvrir dans le navigateur »</b></p>
   </div>
-  <button class="skip" type="button" id="gate-skip">Continuer ici</button>
 </div>
 
 <header><div class="wrap">
@@ -206,7 +204,6 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
       send(tt?'3 Safari - clic App Store (TikTok)':'3 Clic App Store (hors TikTok)');
     });
   });
-  document.getElementById('gate-skip').addEventListener('click',function(){document.documentElement.className=''});
 })();
 </script>
 
