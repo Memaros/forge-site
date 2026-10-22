@@ -194,27 +194,19 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
     // keepalive: the request survives the navigation to the App Store
     try{fetch(u,{mode:'no-cors',keepalive:true,credentials:'omit'})}catch(x){(new Image()).src=u}
   }
-  // Funnel: 1 visit, 2 gate shown (in-app), 3 scrolled to features, 4 reached the end, 5 App Store click
-  send('Accueil',1);
-  send(IN_APP?'1-visite-tiktok':'1-visite-navigateur');
-  if(IN_APP)send('2-ecran-ouvrir-navigateur');
-  var seen={};
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting&&!seen[e.target.id]){seen[e.target.id]=1;if(e.target.id==='end'&&!seen.feats){seen.feats=1;send('3-scroll-fonctionnalites')}send(e.target.id==='feats'?'3-scroll-fonctionnalites':'4-scroll-fin')}
-    })},{threshold:.25});
-    ['feats','end'].forEach(function(id){io.observe(document.getElementById(id))});
-  }
+  // Funnel (trafic marqué ?src=tiktok dans le lien de la bio) :
+  //  1 écran « flèche » vu dans TikTok  ->  2 arrivé dans Safari  ->  3 clic « Télécharger » (redirigé vers l'App Store)
+  var tt=/[?&]src=tiktok/.test(location.search);
+  if(IN_APP)send('1 TikTok - écran flèche vu');
+  else if(tt)send('2 Safari - arrivé depuis TikTok');
+  else send('2 Visite directe (hors TikTok)');
   document.querySelectorAll('a[href^="https://apps.apple.com"]').forEach(function(a){
     a.addEventListener('click',function(e){
-      if(IN_APP){e.preventDefault();send('5-clic-appstore-bloque-tiktok');document.documentElement.className='ingate';return}
-      send('5-clic-appstore-'+(a.getAttribute('data-t')||'autre'));
+      if(IN_APP){e.preventDefault();document.documentElement.className='ingate';return}
+      send(tt?'3 Safari - clic App Store (TikTok)':'3 Clic App Store (hors TikTok)');
     });
   });
-  document.getElementById('gate-skip').addEventListener('click',function(){
-    send('x-continuer-dans-tiktok');
-    document.documentElement.className='';
-  });
+  document.getElementById('gate-skip').addEventListener('click',function(){document.documentElement.className=''});
 })();
 </script>
 
