@@ -206,7 +206,16 @@ footer .wrap{padding-block:28px;display:flex;flex-wrap:wrap;justify-content:spac
   //  1 écran « flèche » vu dans TikTok  ->  2 arrivé dans Safari  ->  3 clic « Télécharger » (redirigé vers l'App Store)
   var tt=/[?&]src=tiktok/.test(location.search);
   if(IN_APP)send('1 TikTok - écran flèche vu');
-  else if(tt)send('2 Safari - arrivé depuis TikTok');
+  else if(tt){
+    send('2 Safari - arrivé depuis TikTok');
+    // Saute la page : redirection automatique vers l'App Store (une seule fois par session, pour ne pas boucler au retour)
+    var done=false;try{done=sessionStorage.getItem('fr')==='1'}catch(x){}
+    if(!done){
+      try{sessionStorage.setItem('fr','1')}catch(x){}
+      send('3 Safari - redirection auto App Store');
+      setTimeout(function(){location.replace('https://apps.apple.com/fr/app/forge-musculation/id6759491610')},250);
+    }
+  }
   else send('2 Visite directe (hors TikTok)');
   document.querySelectorAll('a[href^="https://apps.apple.com"]').forEach(function(a){
     a.addEventListener('click',function(e){
